@@ -55,7 +55,12 @@ OBJECTS_OBJ=$(SOURCES_SRC:.c=.o)
 
 .PHONY:	all install clean nice
 
-all: $(EXECUTABLE)
+all: $(EXECUTABLE) libs
+
+libzonedetect.a: $(OBJECTS_OBJ)
+	ar rcs libzonedetect.a $(OBJECTS_OBJ)
+
+libs: libzonedetect.a
 
 $(EXECUTABLE): $(OBJECTS_OBJ)
 	$(CC) $(LDFLAGS) $(OBJECTS_OBJ) -o $@
