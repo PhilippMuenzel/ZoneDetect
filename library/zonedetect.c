@@ -1151,7 +1151,7 @@ const char *ZDGetErrorString(int errZD)
     switch ((enum ZDInternalError)errZD) {
         default:
             assert(0);
-			__attribute__((fallthrough));
+			return "";
         case ZD_OK                :
             return "";
         case ZD_E_DB_OPEN         :
