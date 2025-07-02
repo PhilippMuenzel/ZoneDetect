@@ -31,14 +31,6 @@
 #ifndef INCL_ZONEDETECT_H_
 #define INCL_ZONEDETECT_H_
 
-#if !defined(ZD_EXPORT)
-#if defined(_MSC_VER)
-#define ZD_EXPORT __declspec(dllimport)
-#else
-#define ZD_EXPORT
-#endif
-#endif
-
 typedef enum {
     ZD_LOOKUP_IGNORE = -3,
     ZD_LOOKUP_END = -2,
@@ -67,24 +59,24 @@ typedef struct ZoneDetectOpaque ZoneDetect;
 extern "C" {
 #endif
 
-ZD_EXPORT ZoneDetect *ZDOpenDatabase(const char *path);
-ZD_EXPORT ZoneDetect *ZDOpenDatabaseFromMemory(void* buffer, size_t length);
-ZD_EXPORT void        ZDCloseDatabase(ZoneDetect *library);
+ZoneDetect *ZDOpenDatabase(const char *path);
+ZoneDetect *ZDOpenDatabaseFromMemory(void* buffer, size_t length);
+void        ZDCloseDatabase(ZoneDetect *library);
 
-ZD_EXPORT ZoneDetectResult *ZDLookup(const ZoneDetect *library, float lat, float lon, float *safezone);
-ZD_EXPORT void              ZDFreeResults(ZoneDetectResult *results);
+ZoneDetectResult *ZDLookup(const ZoneDetect *library, float lat, float lon, float *safezone);
+void              ZDFreeResults(ZoneDetectResult *results);
 
-ZD_EXPORT const char *ZDGetNotice(const ZoneDetect *library);
-ZD_EXPORT uint8_t     ZDGetTableType(const ZoneDetect *library);
-ZD_EXPORT const char *ZDLookupResultToString(ZDLookupResult result);
+const char *ZDGetNotice(const ZoneDetect *library);
+uint8_t     ZDGetTableType(const ZoneDetect *library);
+const char *ZDLookupResultToString(ZDLookupResult result);
 
-ZD_EXPORT int         ZDSetErrorHandler(void (*handler)(int, int));
-ZD_EXPORT const char *ZDGetErrorString(int errZD);
+int         ZDSetErrorHandler(void (*handler)(int, int));
+const char *ZDGetErrorString(int errZD);
 
-ZD_EXPORT float* ZDPolygonToList(const ZoneDetect *library, uint32_t polygonId, size_t* length);
+float* ZDPolygonToList(const ZoneDetect *library, uint32_t polygonId, size_t* length);
 
-ZD_EXPORT char* ZDHelperSimpleLookupString(const ZoneDetect* library, float lat, float lon);
-ZD_EXPORT void ZDHelperSimpleLookupStringFree(char* str);
+char* ZDHelperSimpleLookupString(const ZoneDetect* library, float lat, float lon);
+void ZDHelperSimpleLookupStringFree(char* str);
 
 #ifdef __cplusplus
 }
